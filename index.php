@@ -9,9 +9,8 @@
 	
 	
 	<script src="http://yastatic.net/jquery/1.10.1/jquery.min.js"></script>
-	<script src="http://yastatic.net/jquery-ui/1.10.3/jquery-ui.min.js"></script>
-	<script src="/js/underscore-min.js"></script>
-	<script src="/js/backbone-min.js"></script>
+	<script src="/js/underscore.js"></script>
+	<script src="/js/backbone.js"></script>
 	<script src="/js/script.js"></script>
 </head>
 <body>
