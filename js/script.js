@@ -53,11 +53,9 @@ var Person = Backbone.Model.extend({
 
 var PersonView = Backbone.View.extend({	
 	//Привязываем this.el к конкретному элементу DOM структуры
-	tagName: 'div',
-	className: 'employer',
-	id: 'employer-id',
+	tagName:"span",
 
-	template: _.template('UserName: <%= name %> age: <%= age %> job: <%= job %>'),
+	template: _.template($("#employer").html()),
 
 	//При создании вида всегда срабатывает функйия initialize
 	initialize: function() {
