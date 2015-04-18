@@ -10,6 +10,8 @@
 <body>
 <img alt="Backbone.js" src="/images/backbone.png" >
 <p>Работа с backbone.js по урокам сайта <a target="_blank" href="http://loftblog.ru/2013/01/08/razrabotka-veb-prilozheniya-na-backbone-js-chast-pervaya-znakomstvo-s-instrumentami/" >LiftBlog</a></p>
+<p><a href="handlebarsjs.php" >Работа с Handlebars js</a> тут отдельная тестовая задачка по Handlebars</p>
+
 
 <script id="employer" type="text/template" >
 	UserName: <%= name %> age: <%= age %> job: <%= job %>
