@@ -56,7 +56,7 @@ var Person = Backbone.Model.extend({
 //Класс представления  PersonView
 var PersonView = Backbone.View.extend({	
 	//Привязываем this.el к конкретному элементу DOM структуры
-	tagName:"script",
+	tagName:"li",
 	template: _.template($("#employer").html()),
 
 	//При создании вида всегда срабатывает функйия initialize
@@ -67,6 +67,8 @@ var PersonView = Backbone.View.extend({
 	//Отрисовка вида
 	render: function() {
 		this.$el.html( this.template( this.model.toJSON() ) );
+
+		return this;
 	}
 
 });
@@ -104,6 +106,26 @@ var PeopleCollection = Backbone.Collection.extend({
 });
 
 
+//Представление коллекции
+var PeopleView = Backbone.View.extend({
+	tagName: 'ul',
+
+	initialize: function(){
+
+	},
+
+	//Рендер коллекции
+	render: function() {
+			this.collection.each(function(person) {
+				var personView = new PersonView({model: person});
+				this.$el.append(personView.render().el);
+			}, this);
+	 
+			return this;
+		}
+});
+
+
 var peopleCollection = new PeopleCollection();
 
 //Добавляем ранее созданные модели в коллекцию
@@ -130,3 +152,7 @@ var peopleCollection2 = new PeopleCollection([
 	}
  
 ]);
+
+var peopleView = new PeopleView({collection: peopleCollection2});
+
+$(document.body).append(peopleView.render().el);
