@@ -24,6 +24,7 @@ console.log(nick.walk());
 //Теперь то же самое но на Backbone
 
 
+//Класс модели Person
 var Person = Backbone.Model.extend({
 	defaults: {
 			name: 'Name',
@@ -52,6 +53,7 @@ var Person = Backbone.Model.extend({
 });
 
 
+//Класс представления  PersonView
 var PersonView = Backbone.View.extend({	
 	//Привязываем this.el к конкретному элементу DOM структуры
 	tagName:"script",
@@ -69,10 +71,18 @@ var PersonView = Backbone.View.extend({
 
 });
 
+
+//Создание экземпляров моделей с представлениями
+
 var person = new Person();
 person.set({name:"Александр", age:26, job:"Программист"});
-
 var personView = new PersonView({model:person});
+
+var person2 = new Person();
+person2.set({name:"Лиза", age:23, job:"Верстальщик"});
+var personView2 = new PersonView({model:person2});
+
+
 
 
 
@@ -81,7 +91,42 @@ person.on('invalid', function(model, error){
    alert("Invalid: " + error);
 });
 
+person2.on('invalid', function(model, error){
+   alert("Invalid: " + error);
+});
 
 
 
+//Класс коллкеции PeopleCollection
 
+var PeopleCollection = Backbone.Collection.extend({
+	model: Person
+});
+
+
+var peopleCollection = new PeopleCollection();
+
+//Добавляем ранее созданные модели в коллекцию
+peopleCollection.add(person);
+peopleCollection.add(person2);
+
+
+//Добавляем модели в коллекцию в виде массива
+var peopleCollection2 = new PeopleCollection([
+	{
+		name: 'Петр',
+		age: 20,
+		job: 'Таксист'
+	},
+	{
+		name: 'Олег',
+		age: 24,
+		job: 'Менеджер'
+	},
+	{
+		name: 'Анна',
+		age: 18,
+		job: 'Студентка'
+	}
+ 
+]);
