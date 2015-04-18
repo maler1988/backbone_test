@@ -23,6 +23,7 @@ console.log(nick.walk());
 
 //Теперь то же самое но на Backbone
 
+
 var Person = Backbone.Model.extend({
 	defaults: {
 			name: 'Name',
@@ -53,8 +54,7 @@ var Person = Backbone.Model.extend({
 
 var PersonView = Backbone.View.extend({	
 	//Привязываем this.el к конкретному элементу DOM структуры
-	tagName:"span",
-
+	tagName:"script",
 	template: _.template($("#employer").html()),
 
 	//При создании вида всегда срабатывает функйия initialize
@@ -76,12 +76,11 @@ var personView = new PersonView({model:person});
 
 
 
-console.log(personView.el);
-
 //Прослушиваем ошибку
 person.on('invalid', function(model, error){
    alert("Invalid: " + error);
 });
+
 
 
 
