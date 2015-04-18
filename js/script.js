@@ -24,6 +24,21 @@ console.log(nick.walk());
 //Теперь то же самое но на Backbone
 
 
+//Хэлпер – вспомогательная функция, автоматизирующая часто повторяющиеся действия.
+//Хелпер шаблона представления
+var templateHelper = function(id) {
+	return _.template( $('#' + id).html() );
+};
+
+
+
+
+
+
+
+
+
+
 //Класс модели Person
 var Person = Backbone.Model.extend({
 	defaults: {
@@ -57,7 +72,7 @@ var Person = Backbone.Model.extend({
 var PersonView = Backbone.View.extend({	
 	//Привязываем this.el к конкретному элементу DOM структуры
 	tagName:"li",
-	template: _.template($("#employer").html()),
+	template: templateHelper("employer"),
 
 	//При создании вида всегда срабатывает функйия initialize
 	initialize: function() {
@@ -72,6 +87,7 @@ var PersonView = Backbone.View.extend({
 	}
 
 });
+
 
 
 //Создание экземпляров моделей с представлениями
