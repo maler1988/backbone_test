@@ -57,31 +57,30 @@ var PersonView = Backbone.View.extend({
 	className: 'employer',
 	id: 'employer-id',
 
+	template: _.template('UserName: <%= name %> age: <%= age %> job: <%= job %>'),
+
 	//При создании вида всегда срабатывает функйия initialize
 	initialize: function() {
-		console.log('initialize!')
+		this.render();
 	},
 
 	//Отрисовка вида
 	render: function() {
-		this.$el.html( this.model.get('name') + ' (' + this.model.get('age') + ') - ' + this.model.get('job') );
+		this.$el.html( this.template( this.model.toJSON() ) );
 	}
 
 });
 
 var person = new Person();
+person.set({name:"Александр", age:26, job:"Программист"});
 
 var personView = new PersonView({model:person});
 
-person.set({name:"Александр", age:26, job:"Программист"});
 
-console.log(personView.render());
+
 console.log(personView.el);
 
-
-
-
-
+//Прослушиваем ошибку
 person.on('invalid', function(model, error){
    alert("Invalid: " + error);
 });
