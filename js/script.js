@@ -21,7 +21,13 @@
 				name: 'Name',
 				age: 1,
 				job: 'Job'
-			}
+		},
+
+		validate: function(attrs) {
+			if(! $.trim(attrs.name) )
+			return 'Имя персоны должно быть валидным!';	
+		}
+
 	});
  
  
@@ -61,7 +67,7 @@
  
  
 		initialize: function() {
-			this.render();
+			this.model.on('change',this.render, this);
 		},
  
 		render: function() {
@@ -69,6 +75,15 @@
 			this.$el.html( this.template( this.model.toJSON() ) );
  
 			return this;
+		},
+
+		events: {
+			'click .edit':'editPerson'
+		},
+
+		editPerson: function() {
+			var newNamePerson = prompt('Как переименовать персону?', this.model.get('name'));
+			this.model.set({'name': newNamePerson}, {validate:true});
 		}
 	});
 
