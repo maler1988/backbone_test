@@ -7,6 +7,8 @@
 		Collections: {}
 
 	}; 
+
+
  
 	//хэлпер шаблона (вынесен как глобальная функция, хотя это не очень правильно)
 	window.template = function(id) {
@@ -28,6 +30,7 @@
 		model: App.Models.Person
 	});
  
+
  
 	//Вид списка людей
 	App.Views.People = Backbone.View.extend({
@@ -48,12 +51,13 @@
  
 	});
  
+
  
 	//Вид одного человека
 	App.Views.Person = Backbone.View.extend({
 		tagName: 'li',
  
-		template:  template('personTemplate'),
+		template:  template('employer'),
  
  
 		initialize: function() {
@@ -67,6 +71,10 @@
 			return this;
 		}
 	});
+
+
+
+
 
 
 var peopleCollection = new App.Collections.People([
@@ -92,7 +100,6 @@ var peopleCollection = new App.Collections.People([
  
 	$(document.body).append(peopleView.render().el);
  
-	console.log(App.Models);
 
 
 
@@ -100,6 +107,6 @@ var peopleCollection = new App.Collections.People([
 
 
 
-}());
+}());	//Анаонимная функция
 
 
