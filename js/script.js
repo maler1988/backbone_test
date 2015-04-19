@@ -68,6 +68,8 @@
  
 		initialize: function() {
 			this.model.on('change',this.render, this);
+
+			this.model.on('destroy', this.remove, this);
 		},
  
 		render: function() {
@@ -77,13 +79,22 @@
 			return this;
 		},
 
+		remove: function() {
+			this.$el.remove();
+		},
+
 		events: {
-			'click .edit':'editPerson'
+			'click .edit':'editPerson',
+			'click .delete':'destroyPerson'
 		},
 
 		editPerson: function() {
 			var newNamePerson = prompt('Как переименовать персону?', this.model.get('name'));
 			this.model.set({'name': newNamePerson}, {validate:true});
+		},
+
+		destroyPerson: function() {
+			this.model.destroy();
 		}
 	});
 
@@ -115,13 +126,6 @@ var peopleCollection = new App.Collections.People([
  
 	$(document.body).append(peopleView.render().el);
  
-
-
-
-
-
-
-
 }());	//Анаонимная функция
 
 
