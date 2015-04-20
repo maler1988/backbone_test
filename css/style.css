@@ -1,1 +1,9 @@
 @CHARSET "UTF-8";
+
+
+.block {
+	width: 450px;
+	display: block;
+	background: #CCC;
+	margin: 10px;
+}

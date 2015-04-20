@@ -1,0 +1,50 @@
+{
+    "blocks":[
+            {
+                "blockName":"JavaScript",
+                "links":[
+                    {
+                        "href":"http://jquery.com/",
+                        "title":"jQuery",
+                        "descritpion":"Популярная библиотека для манипуляции с DOM, выполнения ajax запросов и пр."
+                    },
+                    {
+                        "href":"http://backbonejs.ru",
+                        "title":"Backbone",
+                        "descritpion":"Backbone.js придает структуру веб-приложениям с помощью моделей с биндингами по ключу и пользовательскими событиями, коллекций с богатым набором методов с перечислимыми сущностями, представлений с декларативной обработкой событий; и соединяет это все с вашим существующим REST-овым JSON API. "
+                    },
+                    {
+                        "href":"http://underscorejs.ru/",
+                        "title":"Underscore",
+                        "descritpion":"Underscore — это невероятно удобная JavaScript-библиотека, этакий швейцарский нож для js-разработчика, набор функций-утилит, которые так привычны любителям Prototype.js (или Ruby). "
+                    }
+                    
+                ]
+
+            },
+            
+            {
+                "blockName":"PHP",
+                "links":[
+                    {
+                        "href":"http://php.net/",
+                        "title":"PHP",
+                        "descritpion":"Инструменты для создания персональных веб-страниц"
+                    },
+                    {
+                        "href":"http://zendframework.ru/",
+                        "title":"ZendFramework",
+                        "descritpion":"ZendFramework - мощная библиотека для разработки высоко-нагруженных web приложений"
+                    },
+                    {
+                        "href":"http://www.code-igniter.ru/",
+                        "title":"CodeIgniter",
+                        "descritpion":"Популярный PHP фреймворк для создания сложных WEb-приложений"
+                    }
+                    
+                ]
+
+            }
+        
+    ]
+}

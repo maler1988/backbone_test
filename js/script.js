@@ -1,50 +1,129 @@
-//Очень похоже на ООП php 
+//Пространства имён
+(function() {
+
+	window.App = { //Глобальный объект App
+		Models: {},
+		Views: {},
+		Collections: {}
+
+	}; 
 
 
-//конструктор объекта Person
-var Person = function(config) {
-  this.name = config.name;
-  this.age = config.age;
-  this.job = config.job;
-};
+ 
+	//хэлпер шаблона (вынесен как глобальная функция, хотя это не очень правильно)
+	window.template = function(id) {
+		return _.template( $('#' + id).html() );
+	};
 
-//Статичный метод walk, добавлен в прототип "класса" Person
-Person.prototype.walk = function() {
-	return this.name + " is walking";
-}
+	//Модель человека
+	App.Models.Person = Backbone.Model.extend({
+		defaults: {
+				name: 'Name',
+				age: 1,
+				job: 'Job'
+		},
 
-var nick = new Person({ name: 'Nick', age: 24, job: 'Front-end developer' });
+		validate: function(attrs) {
+			if(! $.trim(attrs.name) )
+			return 'Имя персоны должно быть валидным!';	
+		}
 
-//console.log(nick);
-//console.log(nick.walk());
+	});
+ 
+ 
+	//Список людей
+	App.Collections.People = Backbone.Collection.extend({
+		model: App.Models.Person
+	});
+ 
+
+ 
+	//Вид списка людей
+	App.Views.People = Backbone.View.extend({
+		tagName: 'ul',
+ 
+		initialize: function() {
+		},
+ 
+		render: function() {
+			this.collection.each(function(person) {
+				var personView = new App.Views.Person({model: person});
+ 
+				this.$el.append(personView.render().el);
+			}, this);
+ 
+			return this;
+		}
+ 
+	});
+ 
+
+ 
+	//Вид одного человека
+	App.Views.Person = Backbone.View.extend({
+		tagName: 'li',
+ 
+		template:  template('employer'),
+ 
+ 
+		initialize: function() {
+			this.model.on('change',this.render, this);
+
+			this.model.on('destroy', this.remove, this);
+		},
+ 
+		render: function() {
+			//замечательный шаблон
+			this.$el.html( this.template( this.model.toJSON() ) );
+ 
+			return this;
+		},
+
+		remove: function() {
+			this.$el.remove();
+		},
+
+		events: {
+			'click .edit':'editPerson',
+			'click .delete':'destroyPerson'
+		},
+
+		editPerson: function() {
+			var newNamePerson = prompt('Как переименовать персону?', this.model.get('name'));
+			this.model.set({'name': newNamePerson}, {validate:true});
+		},
+
+		destroyPerson: function() {
+			this.model.destroy();
+		}
+	});
 
 
 
 
-//Теперь то же самое в backbone
 
-var PersonBackbone = Backbone.Model.extend({
-	defaults: {
-		name: "UserName",
-		age: 0,
-		job: "User job"
-	},
-	
-	walk: function() {
-		return this.get('name') + ' is walking.';
-	}
 
-});
-
-//Не указали никаких данных в конструкторе, создался пользователь со значениями из default
-var bPerson = new PersonBackbone;
-
-//Устанавливаем атрибуты объекта
-bPerson.set({"name":"Sasha", "age":26, "job":"Ruformat programmer"});
-
-//Получаем значение атрибутов объекта
-var Job = bPerson.get("job");
-
-console.log(bPerson);
-console.log("Job is: "+Job);
-console.log(bPerson.walk());
+var peopleCollection = new App.Collections.People([
+		{
+			name: 'Петр',
+			age: 20,
+			job: 'Таксист'
+		},
+		{
+			name: 'Олег',
+			age: 24,
+			job: 'Менеджер'
+		},
+		{
+			name: 'Анна',
+			age: 18,
+			job: 'Студентка'
+		}
+	]);
+ 
+ 
+	var peopleView = new App.Views.People({collection: peopleCollection});
+ 
+	$(document.body).append(peopleView.render().el);
+ 
+}());	//Анаонимная функция
